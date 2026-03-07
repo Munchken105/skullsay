@@ -1,0 +1,23 @@
+#art from ascii.co.ukk/art/skulls
+$the_cow = <<EOC;
+
+ $thoughts
+   $thoughts
+      ______
+   .-"      "-.
+  /            \\
+ |              |
+ |,  .-.  .-.  ,|
+ | )(__/  \\__)( |
+ |/     /\\     \\|
+ (_     ^^     _) 
+       
+  \\__|IIIIII|__/
+   | \\IIIIII/ | 
+    \\________/
+
+
+
+
+
+EOC

@@ -1,4 +1,4 @@
-#%BANGPERL%
+#!/usr/bin/env perl
 
 ##
 ## Cowsay 3.03
@@ -16,7 +16,7 @@ $version = "3.03";
 $progname = basename($0);
 $eyes = "oo";
 $tongue = "  ";
-$cowpath = $ENV{'COWPATH'} || '%PREFIX%/share/cows';
+$cowpath = $ENV{'COWPATH'} || './cows';
 @message = ();
 $thoughts = "";
 
@@ -43,7 +43,8 @@ if (($^O eq "MSWin32") or ($^O eq "Windows_NT")) {	## Many perls, eek!
     'W'		=>	40,
 );
 
-getopts('bde:f:ghlLnNpstTk:wW:y', \%opts);
+getopts('kbde:f:ghlLnNpstT:wW:y', \%opts);
+
 
 &display_usage if $opts{'h'};
 &list_cowfiles if $opts{'l'};
@@ -67,6 +68,7 @@ $Text::Wrap::columns = $opts{'W'};
 	    split("\n", fill("", "", @message)));
 &construct_balloon;
 &construct_face;
+&skull_mode;
 &get_cow;
 print @balloon_lines;
 print $the_cow;
@@ -151,6 +153,11 @@ sub construct_face {
     if ($wired) { $eyes = "OO"; } 
     if ($young) { $eyes = ".."; }
     if ($skull) { $eyes = "() ()";   }
+}
+
+#if -k is used it will print a skull instead
+sub skull_mode {
+if ($skull) {$opts{'f'} = "skull";}
 }
 
 sub get_cow {
