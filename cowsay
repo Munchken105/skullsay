@@ -158,21 +158,22 @@ sub construct_face {
 
 #if -k is used it will print a skull instead and if -r is used it will pick a random skull
 sub skull_mode { 
-    my %skulls = (
-       default => "skull",
-       small => "small_skull",     
-    );	
-    
+
     if ($skull){
 	if ($random){
-	   my @keys = keys %skulls;
-	 
-	   my $pick = $keys[int(rand(@keys))];
-	  
-	   $opts{'f'} = $skulls{$pick};
+		opendir($cowdir, "cows") or die "cant open cow directory\n";
+		my @skull = grep{/skull.*\.cow$/} readdir($cowdir);
+		close($cowdir);
+		$skull_file = $skull[int(rand(@skull))];
+		$skull_file =~ s/\.cow$//; #removes .cow at the end of the file
+		$opts{'f'} = $skull_file;
+
 	}
+
 	else {
-	   $opts{'f'} = "skull";	   
+
+	$opts{'f'} = "skull"
+	
 	}
     }
 }
